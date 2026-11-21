@@ -1,0 +1,207 @@
+/* ===== Colores y tipografía (modo noche) ===== */
+:root {
+  color-scheme: dark;
+  --fondo: #12151d;
+  --superficie: #1a1f2b;
+  --superficie-2: #232a3a;
+  --linea: #313a50;
+  --texto: #e4e7ef;
+  --tenue: #8d95ab;
+  --acento: #7fa8ff;      /* azul: botones y nodos */
+  --camino: #f3c46b;      /* ámbar: recorrido y camino más corto */
+  --error: #ff8f8f;
+  --ok: #8fe3b0;
+  --radio: 12px;
+  --fuente: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* ===== Encabezado y pestañas ===== */
+.encabezado, .pestanas, main, .pie {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-inline: 20px;
+}
+.encabezado { padding-top: 40px; }
+.encabezado h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.encabezado p { margin: 8px 0 0; color: var(--tenue); max-width: 62ch; }
+
+.pestanas {
+  display: flex;
+  gap: 4px;
+  margin-top: 28px;
+  border-bottom: 1px solid var(--linea);
+  overflow-x: auto;
+}
+.pestanas button {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--tenue);
+  font: 600 0.95rem var(--fuente);
+  padding: 12px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.pestanas button:hover { color: var(--texto); }
+.pestanas button[aria-selected="true"] { color: var(--texto); border-bottom-color: var(--acento); }
+
+main { padding-top: 24px; padding-bottom: 40px; }
+.panel { display: grid; gap: 20px; }
+.panel[hidden] { display: none; }
+
+h2 { font-size: 1.15rem; margin: 0 0 8px; }
+
+/* ===== Formularios ===== */
+.controles { display: grid; gap: 10px; }
+.fila { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+.campo { display: grid; gap: 4px; font-size: 0.85rem; color: var(--tenue); }
+.campo.crece { flex: 1 1 260px; }
+.campo.corto input { width: 110px; }
+.campo[hidden] { display: none; }
+
+input, select {
+  background: var(--superficie);
+  color: var(--texto);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: 1rem var(--fuente);
+  min-height: 44px;
+}
+input:focus, select:focus { outline: none; border-color: var(--acento); }
+
+.btn {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid var(--linea);
+  background: var(--superficie-2);
+  color: var(--texto);
+  font: 600 0.95rem var(--fuente);
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--acento); }
+.btn.primario { background: var(--acento); border-color: var(--acento); color: #0f1a33; }
+.btn.primario:hover { filter: brightness(1.1); }
+.btn.tenue { background: transparent; color: var(--tenue); }
+.btn.recorrido[aria-pressed="true"] { border-color: var(--camino); color: var(--camino); }
+
+:focus-visible { outline: 2px solid var(--camino); outline-offset: 2px; }
+
+.mensaje { margin: 0; min-height: 1.4em; font-size: 0.9rem; color: var(--tenue); }
+.mensaje[data-tipo="error"] { color: var(--error); }
+.mensaje[data-tipo="ok"] { color: var(--ok); }
+.nota { margin: 0; font-size: 0.88rem; color: var(--tenue); }
+.nota[hidden] { display: none; }
+
+/* ===== Lienzos SVG ===== */
+.lienzo {
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 16px;
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  overflow-x: auto;
+}
+.lienzo svg { width: 100%; height: auto; display: block; }
+.vacio { color: var(--tenue); text-align: center; margin: 0; }
+.vacio[hidden] { display: none; }
+
+svg .arista { stroke: var(--linea); stroke-width: 2; transition: stroke 0.3s; }
+svg .arista.en-camino { stroke: var(--camino); stroke-width: 4; }
+svg .nodo circle { fill: var(--superficie-2); stroke: var(--acento); stroke-width: 2; transition: fill 0.3s, stroke 0.3s; }
+svg .nodo text { fill: var(--texto); font: 600 14px var(--fuente); pointer-events: none; }
+svg .nodo.visitado circle { fill: #3a3220; stroke: var(--camino); }
+svg .nodo.actual circle { fill: var(--camino); stroke: var(--camino); }
+svg .nodo.actual text { fill: #1d1608; }
+svg .nodo.en-camino circle { fill: #3a3220; stroke: var(--camino); stroke-width: 3; }
+svg .etiqueta rect { fill: var(--fondo); stroke: var(--linea); }
+svg .etiqueta text { fill: var(--tenue); font: 600 12px var(--mono); }
+svg .etiqueta.en-camino rect { stroke: var(--camino); }
+svg .etiqueta.en-camino text { fill: var(--camino); }
+
+/* ===== Recorridos ===== */
+.recorridos { display: grid; gap: 14px; }
+.resultado {
+  border-left: 3px solid var(--camino);
+  padding: 4px 0 4px 16px;
+}
+.resultado[hidden] { display: none; }
+.regla { margin: 0 0 10px; color: var(--tenue); font-size: 0.92rem; }
+.secuencia {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--mono);
+}
+.secuencia li {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--superficie-2);
+  border: 1px solid var(--linea);
+}
+.secuencia li:last-child { border-color: var(--camino); }
+.camino-texto { font-family: var(--mono); font-size: 1.15rem; color: var(--camino); margin: 4px 0; }
+.resultado p { margin: 4px 0; }
+
+/* ===== Grafo: columnas y tablas ===== */
+.dos-columnas { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; align-items: start; }
+@media (max-width: 800px) { .dos-columnas { grid-template-columns: 1fr; } }
+
+.tabla-scroll { overflow-x: auto; }
+.tabla { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.tabla th, .tabla td { padding: 8px 10px; border-bottom: 1px solid var(--linea); text-align: left; white-space: nowrap; }
+.tabla th { color: var(--tenue); font-weight: 600; }
+.tabla td.vacio { white-space: normal; }
+.tabla .num { font-family: var(--mono); }
+.tabla .quitar { background: none; border: 0; color: var(--tenue); cursor: pointer; font: 0.85rem var(--fuente); padding: 6px; }
+.tabla .quitar:hover { color: var(--error); }
+
+.dijkstra td, .dijkstra th { text-align: center; font-family: var(--mono); }
+.dijkstra td small { color: var(--tenue); }
+.dijkstra td.elegido { background: #3a3220; color: var(--camino); font-weight: 600; }
+.dijkstra td.cambio { text-decoration: underline; text-decoration-color: var(--acento); text-underline-offset: 4px; }
+.dijkstra td.hecho { color: var(--linea); }
+
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* ===== Guía ===== */
+.guia article { max-width: 75ch; }
+.guia article + article { border-top: 1px solid var(--linea); padding-top: 20px; }
+.guia li { margin-bottom: 6px; }
+.formula {
+  font-family: var(--mono);
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--camino);
+}
+
+.pie { color: var(--tenue); font-size: 0.85rem; padding-bottom: 32px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
