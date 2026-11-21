@@ -6,35 +6,62 @@
   <title>Árboles y grafos | Matemática Discreta</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="encabezado">
-    <h1>Árboles y grafos</h1>
-    <p>Recorre un árbol en preorden, inorden y postorden, y encuentra el camino más corto de un grafo con el algoritmo de Dijkstra.</p>
+    <div class="encabezado-texto">
+      <p class="sobretitulo">Matemática Discreta · Evaluación final</p>
+      <h1>Árboles <span class="y">&amp;</span> grafos</h1>
+      <p>Recorre un árbol en preorden, inorden y postorden, y encuentra el camino más corto de un grafo con el algoritmo de Dijkstra.</p>
+    </div>
+    <svg class="adorno" viewBox="0 0 220 170" aria-hidden="true">
+      <g class="adorno-lineas">
+        <line x1="110" y1="28" x2="60" y2="82"/><line x1="110" y1="28" x2="160" y2="82"/>
+        <line x1="60" y1="82" x2="32" y2="138"/><line x1="60" y1="82" x2="88" y2="138"/>
+        <line x1="160" y1="82" x2="188" y2="138"/>
+      </g>
+      <g class="adorno-ruta"><line x1="110" y1="28" x2="160" y2="82"/><line x1="160" y1="82" x2="188" y2="138"/></g>
+      <g class="adorno-nodos">
+        <circle cx="110" cy="28" r="16" class="r"/><circle cx="60" cy="82" r="14"/><circle cx="160" cy="82" r="14" class="r"/>
+        <circle cx="32" cy="138" r="12"/><circle cx="88" cy="138" r="12"/><circle cx="188" cy="138" r="12" class="r"/>
+      </g>
+    </svg>
   </header>
 
   <nav class="pestanas" role="tablist" aria-label="Secciones">
-    <button role="tab" id="tab-arboles" aria-controls="arboles" aria-selected="true">Árboles</button>
-    <button role="tab" id="tab-grafos" aria-controls="grafos" aria-selected="false">Grafos y Dijkstra</button>
-    <button role="tab" id="tab-guia" aria-controls="guia" aria-selected="false">Guía a mano</button>
+    <button role="tab" id="tab-arboles" aria-controls="arboles" aria-selected="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M11 7 7 16M13 7l4 9"/></svg>
+      Árboles
+    </button>
+    <button role="tab" id="tab-grafos" aria-controls="grafos" aria-selected="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="7" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.5 7h9M6.5 9l4 7M17.5 8.5l-4 7"/></svg>
+      Grafos y Dijkstra
+    </button>
+    <button role="tab" id="tab-guia" aria-controls="guia" aria-selected="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5c-.8 0-1.5-.7-1.5-1.5zM20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5z"/></svg>
+      Guía a mano
+    </button>
   </nav>
 
   <main>
     <!-- ===================== ÁRBOLES ===================== -->
     <section id="arboles" class="panel" role="tabpanel" aria-labelledby="tab-arboles">
-      <div class="controles">
-        <form id="formArbol" class="fila">
-          <label class="campo crece">
-            <span>Valores a insertar (separados por comas)</span>
-            <input id="valores" type="text" inputmode="decimal" placeholder="50, 30, 70, 20, 40, 60, 80" autocomplete="off">
-          </label>
-          <button type="submit" class="btn primario">Insertar</button>
-          <button type="button" id="btnEjemploArbol" class="btn">Cargar ejemplo</button>
-          <button type="button" id="btnVaciarArbol" class="btn tenue">Vaciar</button>
-        </form>
-        <p id="msgArbol" class="mensaje" aria-live="polite"></p>
+      <div class="tarjeta">
+        <div class="tarjeta-cabeza"><span class="paso">1</span><h2>Construye el árbol binario de búsqueda</h2></div>
+        <div class="controles">
+          <form id="formArbol" class="fila">
+            <label class="campo crece">
+              <span>Valores a insertar (separados por comas)</span>
+              <input id="valores" type="text" inputmode="decimal" placeholder="50, 30, 70, 20, 40, 60, 80" autocomplete="off">
+            </label>
+            <button type="submit" class="btn primario">Insertar</button>
+            <button type="button" id="btnEjemploArbol" class="btn">Cargar ejemplo</button>
+            <button type="button" id="btnVaciarArbol" class="btn tenue">Vaciar</button>
+          </form>
+          <p id="msgArbol" class="mensaje" aria-live="polite"></p>
+        </div>
       </div>
 
       <div class="lienzo">
@@ -42,14 +69,15 @@
         <svg id="lienzoArbol" role="img" aria-label="Dibujo del árbol binario"></svg>
       </div>
 
-      <div class="recorridos">
-        <div class="fila">
+      <div class="tarjeta recorridos">
+        <div class="tarjeta-cabeza"><span class="paso">2</span><h2>Recorre el árbol</h2></div>
+        <div class="segmentado" role="group" aria-label="Tipo de recorrido">
           <button class="btn recorrido" data-tipo="pre">Preorden</button>
           <button class="btn recorrido" data-tipo="in">Inorden</button>
           <button class="btn recorrido" data-tipo="post">Postorden</button>
         </div>
         <div class="resultado" aria-live="polite">
-          <h2 id="recorridoTitulo">Elige un recorrido</h2>
+          <h3 id="recorridoTitulo">Elige un recorrido</h3>
           <p id="recorridoRegla" class="regla">Cada recorrido visita los mismos nodos, pero en distinto orden.</p>
           <ol id="recorridoSalida" class="secuencia"></ol>
         </div>
@@ -58,31 +86,34 @@
 
     <!-- ===================== GRAFOS ===================== -->
     <section id="grafos" class="panel" role="tabpanel" aria-labelledby="tab-grafos" hidden>
-      <div class="controles">
-        <div class="fila">
-          <label class="campo">
-            <span>Tipo de peso</span>
-            <select id="modoPeso">
-              <option value="peso">Distancia o peso directo</option>
-              <option value="ospf">Ancho de banda (costo OSPF)</option>
-            </select>
-          </label>
-          <label class="campo" id="campoRef" hidden>
-            <span>Ancho de banda de referencia (Mbps)</span>
-            <input id="refBw" type="number" min="1" value="100">
-          </label>
-        </div>
-        <p id="notaOspf" class="nota" hidden>Costo OSPF = referencia ÷ ancho de banda del enlace (se redondea hacia abajo, mínimo 1). Más ancho de banda da un costo más pequeño.</p>
+      <div class="tarjeta">
+        <div class="tarjeta-cabeza"><span class="paso">1</span><h2>Arma el grafo</h2></div>
+        <div class="controles">
+          <div class="fila">
+            <label class="campo">
+              <span>Tipo de peso</span>
+              <select id="modoPeso">
+                <option value="peso">Distancia o peso directo</option>
+                <option value="ospf">Ancho de banda (costo OSPF)</option>
+              </select>
+            </label>
+            <label class="campo" id="campoRef" hidden>
+              <span>Ancho de banda de referencia (Mbps)</span>
+              <input id="refBw" type="number" min="1" value="100">
+            </label>
+          </div>
+          <p id="notaOspf" class="nota" hidden>Costo OSPF = referencia ÷ ancho de banda del enlace (se redondea hacia abajo, mínimo 1). Más ancho de banda da un costo más pequeño.</p>
 
-        <form id="formArista" class="fila">
-          <label class="campo corto"><span>Origen</span><input id="aOrigen" type="text" placeholder="A" autocomplete="off" required></label>
-          <label class="campo corto"><span>Destino</span><input id="aDestino" type="text" placeholder="B" autocomplete="off" required></label>
-          <label class="campo corto"><span id="etiquetaValor">Peso</span><input id="aValor" type="number" step="any" min="0" placeholder="4" required></label>
-          <button type="submit" class="btn primario">Agregar conexión</button>
-          <button type="button" id="btnEjemploGrafo" class="btn">Cargar ejemplo</button>
-          <button type="button" id="btnVaciarGrafo" class="btn tenue">Vaciar</button>
-        </form>
-        <p id="msgGrafo" class="mensaje" aria-live="polite"></p>
+          <form id="formArista" class="fila">
+            <label class="campo corto"><span>Origen</span><input id="aOrigen" type="text" placeholder="A" autocomplete="off" required></label>
+            <label class="campo corto"><span>Destino</span><input id="aDestino" type="text" placeholder="B" autocomplete="off" required></label>
+            <label class="campo corto"><span id="etiquetaValor">Peso</span><input id="aValor" type="number" step="any" min="0" placeholder="4" required></label>
+            <button type="submit" class="btn primario">Agregar conexión</button>
+            <button type="button" id="btnEjemploGrafo" class="btn">Cargar ejemplo</button>
+            <button type="button" id="btnVaciarGrafo" class="btn tenue">Vaciar</button>
+          </form>
+          <p id="msgGrafo" class="mensaje" aria-live="polite"></p>
+        </div>
       </div>
 
       <div class="dos-columnas">
@@ -90,7 +121,7 @@
           <p id="grafoVacio" class="vacio">Agrega conexiones o carga el ejemplo para ver el grafo.</p>
           <svg id="lienzoGrafo" role="img" aria-label="Dibujo del grafo con pesos"></svg>
         </div>
-        <div class="lista">
+        <div class="tarjeta lista">
           <h2>Conexiones</h2>
           <div class="tabla-scroll">
             <table class="tabla">
@@ -101,57 +132,64 @@
         </div>
       </div>
 
-      <div class="controles">
+      <div class="tarjeta">
+        <div class="tarjeta-cabeza"><span class="paso">2</span><h2>Calcula el camino más corto</h2></div>
         <div class="fila">
           <label class="campo"><span>Desde</span><select id="dOrigen"></select></label>
           <label class="campo"><span>Hasta</span><select id="dDestino"></select></label>
           <button id="btnDijkstra" class="btn primario">Calcular camino más corto</button>
         </div>
+        <div id="resultadoCamino" class="resultado" aria-live="polite" hidden></div>
       </div>
 
-      <div id="resultadoCamino" class="resultado" aria-live="polite" hidden></div>
-      <div id="bloqueTabla" hidden>
-        <h2>Tabla de Dijkstra paso a paso</h2>
-        <p class="regla">Así se ve la tabla cuando lo resuelves a mano. El número entre paréntesis es el nodo desde donde llegas. Resaltado: el nodo que se marca como definitivo en ese paso. Subrayado: distancia que mejoró.</p>
+      <div id="bloqueTabla" class="tarjeta" hidden>
+        <div class="tarjeta-cabeza"><span class="paso">3</span><h2>Tabla de Dijkstra paso a paso</h2></div>
+        <p class="regla">Así se ve la tabla cuando lo resuelves a mano. El número entre paréntesis es el nodo desde donde llegas.</p>
+        <ul class="leyenda">
+          <li><span class="muestra elegido"></span>Se marca como definitivo</li>
+          <li><span class="muestra cambio"></span>Distancia que mejoró</li>
+        </ul>
         <div class="tabla-scroll"><table id="tablaDijkstra" class="tabla dijkstra"></table></div>
       </div>
     </section>
 
     <!-- ===================== GUÍA ===================== -->
     <section id="guia" class="panel guia" role="tabpanel" aria-labelledby="tab-guia" hidden>
-      <article>
-        <h2>1. Construir un árbol binario de búsqueda</h2>
+      <article class="tarjeta">
+        <div class="tarjeta-cabeza"><span class="paso">1</span><h2>Construir un árbol binario de búsqueda</h2></div>
         <ol>
           <li>El primer valor es la raíz.</li>
           <li>Para cada valor nuevo, empieza en la raíz: si es menor, baja a la izquierda; si es mayor, baja a la derecha.</li>
           <li>Repite hasta encontrar un lugar vacío y colócalo ahí. Los valores repetidos no se insertan.</li>
         </ol>
-        <p>Ejemplo con 50, 30, 70, 20, 40, 60, 80: 50 es la raíz; 30 va a la izquierda de 50; 70 a la derecha; 20 a la izquierda de 30; 40 a la derecha de 30; 60 a la izquierda de 70; 80 a la derecha de 70.</p>
+        <p class="ejemplo">Ejemplo con 50, 30, 70, 20, 40, 60, 80: 50 es la raíz; 30 va a la izquierda de 50; 70 a la derecha; 20 a la izquierda de 30; 40 a la derecha de 30; 60 a la izquierda de 70; 80 a la derecha de 70.</p>
       </article>
 
-      <article>
-        <h2>2. Recorrer el árbol</h2>
-        <table class="tabla">
-          <thead><tr><th>Recorrido</th><th>Regla</th><th>Resultado del ejemplo</th></tr></thead>
-          <tbody>
-            <tr><td>Preorden</td><td>Raíz, izquierda, derecha</td><td class="num">50, 30, 20, 40, 70, 60, 80</td></tr>
-            <tr><td>Inorden</td><td>Izquierda, raíz, derecha</td><td class="num">20, 30, 40, 50, 60, 70, 80</td></tr>
-            <tr><td>Postorden</td><td>Izquierda, derecha, raíz</td><td class="num">20, 40, 30, 60, 80, 70, 50</td></tr>
-          </tbody>
-        </table>
-        <p><strong>Truco del contorno:</strong> dibuja una línea que rodee el árbol por fuera, empezando a la izquierda de la raíz y bajando. Anota cada nodo cuando la línea pase por su lado izquierdo (preorden), por debajo (inorden) o por su lado derecho (postorden).</p>
-        <p><strong>Para comprobar:</strong> en un árbol binario de búsqueda, el inorden siempre sale ordenado de menor a mayor. En preorden la raíz sale primero, y en postorden sale al final.</p>
+      <article class="tarjeta">
+        <div class="tarjeta-cabeza"><span class="paso">2</span><h2>Recorrer el árbol</h2></div>
+        <div class="tabla-scroll">
+          <table class="tabla">
+            <thead><tr><th>Recorrido</th><th>Regla</th><th>Resultado del ejemplo</th></tr></thead>
+            <tbody>
+              <tr><td>Preorden</td><td>Raíz, izquierda, derecha</td><td class="num">50, 30, 20, 40, 70, 60, 80</td></tr>
+              <tr><td>Inorden</td><td>Izquierda, raíz, derecha</td><td class="num">20, 30, 40, 50, 60, 70, 80</td></tr>
+              <tr><td>Postorden</td><td>Izquierda, derecha, raíz</td><td class="num">20, 40, 30, 60, 80, 70, 50</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="consejo"><strong>Truco del contorno:</strong> dibuja una línea que rodee el árbol por fuera, empezando a la izquierda de la raíz y bajando. Anota cada nodo cuando la línea pase por su lado izquierdo (preorden), por debajo (inorden) o por su lado derecho (postorden).</p>
+        <p class="consejo"><strong>Para comprobar:</strong> en un árbol binario de búsqueda, el inorden siempre sale ordenado de menor a mayor. En preorden la raíz sale primero, y en postorden sale al final.</p>
       </article>
 
-      <article>
-        <h2>3. Costo OSPF a partir del ancho de banda</h2>
+      <article class="tarjeta">
+        <div class="tarjeta-cabeza"><span class="paso">3</span><h2>Costo OSPF a partir del ancho de banda</h2></div>
         <p>En redes, OSPF convierte el ancho de banda en un peso con esta fórmula:</p>
         <p class="formula">costo = ancho de banda de referencia ÷ ancho de banda del enlace</p>
         <p>Con la referencia de 100 Mbps: un enlace de 10 Mbps cuesta 100 ÷ 10 = 10; uno de 50 Mbps cuesta 2; uno de 100 Mbps cuesta 1. El resultado se redondea hacia abajo y nunca es menor que 1. A más ancho de banda, menor costo, y Dijkstra prefiere los caminos de menor costo total.</p>
       </article>
 
-      <article>
-        <h2>4. Dijkstra a mano</h2>
+      <article class="tarjeta">
+        <div class="tarjeta-cabeza"><span class="paso">4</span><h2>Dijkstra a mano</h2></div>
         <ol>
           <li>Haz una tabla con una columna por nodo. En la fila de inicio pon 0 en el origen y ∞ en los demás.</li>
           <li>Escoge el nodo sin marcar con la distancia más pequeña y márcalo como definitivo.</li>
@@ -174,12 +212,12 @@
             </tbody>
           </table>
         </div>
-        <p>Camino hacia atrás: F viene de E, E de D, D de B, B de C, C de A. El camino más corto es <strong>A → C → B → D → E → F</strong> con costo <strong>12</strong>.</p>
+        <p class="ejemplo">Camino hacia atrás: F viene de E, E de D, D de B, B de C, C de A. El camino más corto es <strong>A → C → B → D → E → F</strong> con costo <strong>12</strong>.</p>
       </article>
 
-      <article>
-        <h2>5. Errores comunes</h2>
-        <ul>
+      <article class="tarjeta">
+        <div class="tarjeta-cabeza"><span class="paso">5</span><h2>Errores comunes</h2></div>
+        <ul class="errores">
           <li>Marcar un nodo que no tiene la distancia más pequeña. Siempre compara todos los que siguen sin marcar.</li>
           <li>Olvidar que en un grafo no dirigido la arista A–B también sirve de B a A.</li>
           <li>Cambiar una distancia por otra más grande. Solo se reemplaza si la nueva es menor.</li>
@@ -189,7 +227,7 @@
     </section>
   </main>
 
-  <footer class="pie">Matemática Discreta. Proyecto de árboles y grafos.</footer>
+  <footer class="pie">Matemática Discreta · Proyecto de árboles y grafos</footer>
 
   <script src="script.js"></script>
 </body>
